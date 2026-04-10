@@ -6,3 +6,5 @@ compile_commands.json
 /.build/
 /.cache/
 uv.lock
+/.install/
+/installtest/.build/
