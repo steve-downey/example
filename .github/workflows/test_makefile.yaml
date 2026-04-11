@@ -15,9 +15,7 @@ jobs:
   test_matrix:
     strategy:
       fail-fast: false
-      matrix:
-        config: ${{ fromJson(needs.configure_test_matrix.outputs.matrix) }}
-    name: "${{ matrix.config.compiler }} ${{ matrix.config.version }} ${{ matrix.config.cxxversion }} ${{ matrix.config.stdlib }} ${{ matrix.config.test }}"
+    name:  Test System Compiler with Makefile
     runs-on: 'ubuntu-latest'
     container: ghcr.io/bemanproject/infra-containers-gcc:latest
     steps:
