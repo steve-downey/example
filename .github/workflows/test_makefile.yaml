@@ -29,11 +29,11 @@ jobs:
         with:
           # Install a specific version of uv.
           version: "0.11.6"
-      - name: Install gcc
+      - name: Install system tools
         shell: bash
         run: |
          sudo apt update
-         sudo apt -y install build-essential g++-14
+         sudo apt -y install build-essential gcc g++ ccache jq
 
       - name: Configure Environment
         shell: bash
