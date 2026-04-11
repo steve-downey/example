@@ -27,6 +27,7 @@ jobs:
       - name: Configure Environment
         shell: bash
         run: |
+          pipx install uv
           make venv
 
         env:
