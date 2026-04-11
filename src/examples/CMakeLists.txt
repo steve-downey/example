@@ -9,8 +9,8 @@ target_sources(hello PRIVATE hello.cpp)
 target_link_libraries(hello PRIVATE example.name)
 
 install(
-  TARGETS hello
-  COMPONENT example.name.examples
-  DESTINATION ${CMAKE_INSTALL_BINDIR}
-  EXCLUDE_FROM_ALL
+    TARGETS hello
+    COMPONENT example.name.examples
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+    EXCLUDE_FROM_ALL
 )

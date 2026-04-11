@@ -32,27 +32,22 @@ add_library(example.name STATIC "")
 
 target_sources(
     example.name
-    PUBLIC
-        FILE_SET example_name_headers
-            TYPE HEADERS
-            BASE_DIRS src
+    PUBLIC FILE_SET example_name_headers TYPE HEADERS BASE_DIRS src
 )
 
-
-
 if(NAME_ENABLE_TESTING)
-  find_package(GTest QUIET)
-  if(GTest_FOUND)
-    include(GoogleTest)
-  else()
-    message(
-      WARNING
-      "
+    find_package(GTest QUIET)
+    if(GTest_FOUND)
+        include(GoogleTest)
+    else()
+        message(
+            WARNING
+            "
 No provider for GTest. Unable to build tests.
 Consider using CMAKE_PROJECT_TOP_LEVEL_INCLUDES=./cmake/use-fetch-content.cmake as documented in the README.md
 "
-    )
-  endif()
+        )
+    endif()
 endif()
 
 add_subdirectory(src)
