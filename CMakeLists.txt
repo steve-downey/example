@@ -28,21 +28,34 @@ option(
 set(CMAKE_VERIFY_INTERFACE_HEADER_SETS ON)
 
 # Create the library target and named header set for beman.optional
-add_library(example.name STATIC)
+add_library(example.name STATIC "")
 
 target_sources(
     example.name
     PUBLIC
         FILE_SET example_name_headers
             TYPE HEADERS
-            BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}
+            BASE_DIRS src
 )
 
-target_sources(
-    example.name
-    PRIVATE name.cpp
-    PUBLIC FILE_SET example_name_headers TYPE HEADERS FILES name.hpp
-)
+
+
+if(NAME_ENABLE_TESTING)
+  find_package(GTest QUIET)
+  if(GTest_FOUND)
+    include(GoogleTest)
+  else()
+    message(
+      WARNING
+      "
+No provider for GTest. Unable to build tests.
+Consider using CMAKE_PROJECT_TOP_LEVEL_INCLUDES=./cmake/use-fetch-content.cmake as documented in the README.md
+"
+    )
+  endif()
+endif()
+
+add_subdirectory(src)
 
 add_executable(hello)
 
@@ -53,37 +66,11 @@ target_sources(hello PRIVATE hello.cpp)
 target_link_libraries(hello PRIVATE example.name)
 
 install(
-    TARGETS hello
-    COMPONENT example.name.examples
-    DESTINATION ${CMAKE_INSTALL_BINDIR}
-    EXCLUDE_FROM_ALL
+  TARGETS hello
+  COMPONENT example.name.examples
+  DESTINATION ${CMAKE_INSTALL_BINDIR}
+  EXCLUDE_FROM_ALL
 )
-
-if(NAME_ENABLE_TESTING)
-    find_package(GTest QUIET)
-    if(GTest_FOUND)
-        # Create the library target and named header set for testing beman.optional
-        # and mark the set private
-        add_executable(example.name.test)
-        include(GoogleTest)
-        gtest_discover_tests(example.name.test)
-        # Tests
-        target_sources(example.name.test PRIVATE name.test.cpp)
-
-        target_link_libraries(
-            example.name.test
-            PRIVATE example.name GTest::gtest GTest::gtest_main
-        )
-    else()
-        message(
-            WARNING
-            "
-No provider for GTest. Unable to build tests.
-Consider using CMAKE_PROJECT_TOP_LEVEL_INCLUDES=infra/cmake/use-fetch-content.cmake.
-"
-        )
-    endif()
-endif()
 
 include(infra/cmake/beman-install-library.cmake)
 beman_install_library(example.name TARGETS example.name NAMESPACE smd::)

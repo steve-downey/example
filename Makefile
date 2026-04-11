@@ -5,6 +5,8 @@ export
 MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 
+NO_COLOR:=1
+
 INSTALL_PREFIX ?= .install/
 BUILD_DIR ?= .build
 DEST ?= $(INSTALL_PREFIX)
