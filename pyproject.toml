@@ -11,7 +11,6 @@ dev = [
   "clang-format==22.1.3",
   "cmake==4.3.1",
   "gcovr>=8.6",
-  "jq>=1.11.0",
   "mbake==1.4.6",
   "ninja>=1.13",
   "pre-commit>=4.5.1",
