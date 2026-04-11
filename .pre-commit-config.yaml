@@ -68,7 +68,7 @@ repos:
     rev: 3.0.0
     hooks:
       - id: shellcheck
-# Come back to cpplint      
+# Come back to cpplint
 #  - repo: https://github.com/pocc/pre-commit-hooks
 #    rev: v1.3.5
 #    hooks:
