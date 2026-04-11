@@ -1,0 +1,59 @@
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+name: Makefile Workflow Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 15 * * *'
+
+jobs:
+  test_matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        config: ${{ fromJson(needs.configure_test_matrix.outputs.matrix) }}
+    name: "${{ matrix.config.compiler }} ${{ matrix.config.version }} ${{ matrix.config.cxxversion }} ${{ matrix.config.stdlib }} ${{ matrix.config.test }}"
+    runs-on: 'ubuntu-latest'
+    container: ghcr.io/bemanproject/infra-containers-gcc:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: Configure Environment
+        shell: bash
+        run: |
+          make venv
+
+        env:
+          CMAKE_GENERATOR: "Ninja Multi-Config"
+      - name: Build
+        shell: bash
+        run: |
+          make compile
+      - name: Test
+        shell: bash
+        run: |
+          make test
+      - name: Generate Coverage Files
+        shell: bash
+        run: |
+          make coverage
+      - name: Lint
+        shell: bash
+        run: |
+          make lint
+      - name: Manual Lint
+        shell: bash
+        run: |
+          make lint
+      - name: Test Install
+        shell: bash
+        run: |
+          make testinstall
