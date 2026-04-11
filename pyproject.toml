@@ -12,5 +12,5 @@ dev = [
   "clang-format==22.1.1",
   "gcovr>=8.6",
   "pre-commit>=4.5.1",
-  "mbake==1.4.5"
+  "mbake==1.4.6"
 ]
