@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
          sudo apt update
-         sudo apt -y install build-essential g++ g++-14
+         sudo apt -y install build-essential g++-14
 
       - name: Configure Environment
         shell: bash
@@ -45,24 +45,30 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          make compile
+         source .venv/bin/activate
+         make compile
       - name: Test
         shell: bash
         run: |
-          make test
+         source .venv/bin/activate
+         make test
       - name: Generate Coverage Files
         shell: bash
         run: |
-          make coverage
+         source .venv/bin/activate
+         make coverage
       - name: Lint
         shell: bash
         run: |
-          make lint
+         source .venv/bin/activate
+         make lint
       - name: Manual Lint
         shell: bash
         run: |
-          make lint
+         source .venv/bin/activate
+         make lint
       - name: Test Install
         shell: bash
         run: |
-          make testinstall
+         source .venv/bin/activate
+         make testinstall
