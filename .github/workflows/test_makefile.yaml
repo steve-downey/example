@@ -17,10 +17,10 @@ jobs:
   test_matrix:
     strategy:
       fail-fast: false
-    name:  Test System Compiler with Makefile
+    name: Test System Compiler with Makefile
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/bemanproject/testingcontainers-gcc:14
+      image: ghcr.io/bemanproject/testingcontainers-gcc:14@sha256:f7b898e2deb9b470fa47991c5fd37deb151348c1340921c1bf53a731d263e55f # ratchet:ghcr.io/bemanproject/testingcontainers-gcc:14
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
@@ -39,16 +39,16 @@ jobs:
       - name: Install system tools
         shell: bash
         run: |
-         sudo apt update
-         sudo apt -y install build-essential gcc-14 g++-14 ccache jq
-         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 \
-           --slave /usr/bin/g++ g++ /usr/bin/g++-14 \
-           --slave /usr/bin/gcov gcov /usr/bin/gcov-14
-         sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-14  100
-         sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-14 100
-         sudo update-alternatives --set gcc  /usr/bin/gcc-14
-         sudo update-alternatives --set cc  /usr/bin/gcc-14
-         sudo update-alternatives --set c++  /usr/bin/g++-14
+          sudo apt update
+          sudo apt -y install build-essential gcc-14 g++-14 ccache jq
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 \
+            --slave /usr/bin/g++ g++ /usr/bin/g++-14 \
+            --slave /usr/bin/gcov gcov /usr/bin/gcov-14
+          sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-14  100
+          sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-14 100
+          sudo update-alternatives --set gcc  /usr/bin/gcc-14
+          sudo update-alternatives --set cc  /usr/bin/gcc-14
+          sudo update-alternatives --set c++  /usr/bin/g++-14
 
       - name: Configure Environment
         shell: bash
@@ -60,30 +60,30 @@ jobs:
       - name: Build
         shell: bash
         run: |
-         source .venv/bin/activate
-         make compile
+          source .venv/bin/activate
+          make compile
       - name: Test
         shell: bash
         run: |
-         source .venv/bin/activate
-         make test
+          source .venv/bin/activate
+          make test
       - name: Generate Coverage Files
         shell: bash
         run: |
-         source .venv/bin/activate
-         make coverage
+          source .venv/bin/activate
+          make coverage
       - name: Lint
         shell: bash
         run: |
-         source .venv/bin/activate
-         make lint
+          source .venv/bin/activate
+          make lint
       - name: Manual Lint
         shell: bash
         run: |
-         source .venv/bin/activate
-         make lint
+          source .venv/bin/activate
+          make lint
       - name: Test Install
         shell: bash
         run: |
-         source .venv/bin/activate
-         make testinstall
+          source .venv/bin/activate
+          make testinstall
