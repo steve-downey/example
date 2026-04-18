@@ -1,5 +1,7 @@
 # Example C++ Full Stack Project
 
+[![OpenSSF Baseline](https://www.bestpractices.dev/projects/12577/baseline)](https://www.bestpractices.dev/projects/12577)
+
 This repo is my current set of best practices for C++ projects. It does evolve somewhat over time.
 
 This is a snapshot as of today, Sat Apr 11 05:26:37 PM BST 2026.
