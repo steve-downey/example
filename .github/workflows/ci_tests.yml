@@ -14,10 +14,10 @@ permissions: read-all
 
 jobs:
   beman-submodule-check:
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-submodule-check.yml@503ac65da3fd803044bc82b2fe748b2fc6f503cd # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-submodule-check.yml@1.5.3
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-submodule-check.yml@4d946e210ce2ee68ccd8607c8acccacf171830c5 # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-submodule-check.yml@1.7.1
 
   preset-test:
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-preset-test.yml@503ac65da3fd803044bc82b2fe748b2fc6f503cd # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-preset-test.yml@1.5.3
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-preset-test.yml@4d946e210ce2ee68ccd8607c8acccacf171830c5 # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-preset-test.yml@1.7.1
     with:
       matrix_config: >
         [
@@ -32,7 +32,7 @@ jobs:
         ]
 
   build-and-test:
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-build-and-test.yml@503ac65da3fd803044bc82b2fe748b2fc6f503cd # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-build-and-test.yml@1.5.3
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-build-and-test.yml@4d946e210ce2ee68ccd8607c8acccacf171830c5 # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-build-and-test.yml@1.7.1
     with:
       matrix_config: >
         {
@@ -120,4 +120,4 @@ jobs:
   create-issue-when-fault:
     needs: [preset-test, build-and-test]
     if: failure() && github.event_name == 'schedule'
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-create-issue-when-fault.yml@503ac65da3fd803044bc82b2fe748b2fc6f503cd # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-create-issue-when-fault.yml@1.5.3
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-create-issue-when-fault.yml@4d946e210ce2ee68ccd8607c8acccacf171830c5 # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-create-issue-when-fault.yml@1.7.1
