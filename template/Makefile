@@ -113,7 +113,7 @@ compile-headers: $(_build_path)/CMakeCache.txt ## Compile the headers
 
 .PHONY: install
 install: $(_build_path)/CMakeCache.txt compile ## Install the project
-	$(CMAKE) --install $(_build_path) --config $(CONFIG) --component example.name_Development --verbose
+	$(CMAKE) --install $(_build_path) --config $(CONFIG) --component [[[ project_package_name ]]]_Development --verbose
 
 .PHONY: clean-install
 clean-install:

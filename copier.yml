@@ -1,0 +1,87 @@
+_min_copier_version: "9.14.3"
+_subdirectory: template
+_templates_suffix: .jinja
+_envops:
+  autoescape: false
+  block_end_string: "%]"
+  block_start_string: "[%"
+  comment_end_string: "#]"
+  comment_start_string: "[#"
+  keep_trailing_newline: true
+  variable_end_string: "]]]"
+  variable_start_string: "[[["
+_exclude:
+  - .git
+  - example.html
+  - example.md
+
+project_slug:
+  type: str
+  help: Repository slug used for docs and package naming.
+  default: example
+  validator: >-
+    [% if not (project_slug | regex_search('^[a-z][a-z0-9_-]*$')) %]
+    Use lowercase letters, digits, underscores, or hyphens.
+    [% endif %]
+
+project_title:
+  type: str
+  help: Human-readable project title.
+  default: Example C++ Full Stack Project
+
+library_name:
+  type: str
+  help: Core library basename and C++ entrypoint.
+  default: name
+  validator: >-
+    [% if not (library_name | regex_search('^[A-Za-z_][A-Za-z0-9_]*$')) %]
+    Use a valid C++ identifier.
+    [% endif %]
+
+include_prefix:
+  type: str
+  help: Top-level include prefix and exported CMake namespace.
+  default: smd
+  validator: >-
+    [% if not (include_prefix | regex_search('^[A-Za-z_][A-Za-z0-9_]*$')) %]
+    Use a valid identifier.
+    [% endif %]
+
+namespace:
+  type: str
+  help: C++ namespace containing the sample library.
+  default: example
+  validator: >-
+    [% if not (namespace | regex_search('^[A-Za-z_][A-Za-z0-9_]*$')) %]
+    Use a valid C++ identifier.
+    [% endif %]
+
+maintainer_name:
+  type: str
+  help: Author shown in the Org presentation source.
+  default: Steve Downey
+
+maintainer_email:
+  type: str
+  help: Author email shown in the Org presentation source.
+  default: sdowney@gmail.com
+
+sample_value:
+  type: str
+  help: Value returned by the sample library function.
+  default: Steve
+
+project_package_name:
+  type: str
+  when: false
+  default: "[[[ project_slug ]]].[[[ library_name ]]]"
+
+header_set_name:
+  type: str
+  when: false
+  default: "[[[ namespace ]]]_[[[ library_name ]]]_headers"
+
+testing_option_name:
+  type: str
+  when: false
+  default: "[[[ library_name | upper ]]]_ENABLE_TESTING"

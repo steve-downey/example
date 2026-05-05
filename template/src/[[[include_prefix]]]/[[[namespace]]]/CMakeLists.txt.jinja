@@ -1,0 +1,36 @@
+include(GNUInstallDirs)
+
+target_sources(
+    [[[ project_package_name ]]]
+    PUBLIC FILE_SET [[[ header_set_name ]]] TYPE HEADERS FILES [[[ library_name ]]].hpp
+    PRIVATE [[[ library_name ]]].cpp
+)
+
+## Tests
+if([[[ testing_option_name ]]] AND NOT GTest_FOUND)
+    find_package(GTest QUIET)
+    if(GTest_FOUND)
+        include(GoogleTest)
+    else()
+        message(
+            WARNING
+            "
+No provider for GTest. Unable to build tests.
+Consider using CMAKE_PROJECT_TOP_LEVEL_INCLUDES=./cmake/use-fetch-content.cmake as documented in the README.md
+"
+        )
+    endif()
+endif()
+
+if([[[ testing_option_name ]]])
+    add_executable([[[ library_name ]]]_test)
+
+    target_sources([[[ library_name ]]]_test PRIVATE [[[ library_name ]]].test.cpp)
+
+    target_link_libraries([[[ library_name ]]]_test [[[ project_package_name ]]])
+    target_link_libraries([[[ library_name ]]]_test GTest::gtest)
+    target_link_libraries([[[ library_name ]]]_test GTest::gtest_main)
+
+    include(GoogleTest)
+    gtest_discover_tests([[[ library_name ]]]_test)
+endif()
