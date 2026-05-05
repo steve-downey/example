@@ -6,6 +6,39 @@ This repo is my current set of best practices for C++ projects. It does evolve s
 
 This is a snapshot as of today, Sat Apr 11 05:26:37 PM BST 2026.
 
+## Creating a New Project with Copier
+
+This repository also serves as a
+[Copier](https://copier.readthedocs.io/) template for bootstrapping a new
+project from the current example layout. The Copier configuration lives in
+`copier.yml` at the repo root and renders files from the `template/`
+subdirectory.
+
+The shortest workflow is to clone this repository, then run Copier against
+that checkout:
+
+```shell
+git clone <this-repo-url> example-template
+cd example-template
+uv tool run copier copy --trust . ../my-new-project
+```
+
+Copier will prompt for the project-specific values defined in `copier.yml`,
+including:
+
+- `project_slug` for the repository and package slug
+- `project_title` for the human-readable project name
+- `library_name`, `include_prefix`, and `namespace` for the sample C++ library
+- maintainer identity and the sample return value used by the starter code
+
+The generated project records those answers in `.copier-answers.yml`. Commit
+that file in the new repository so the project can be refreshed later with
+`copier update` after this template changes.
+
+For this repository itself, the default answers reproduce the current example
+tree. `copier/check_copier.sh` verifies both that the default render matches
+this repo and that a randomized render does not leak example-specific names.
+
 The code is trivial so that I can repurpose the framework quickly. A library that returns my name, a test that confirms that works, and an example hello `name` that uses the library.
 
 The C++ src is all in the ./src directory, including the headers and tests. Take a look at [The Pitchfork Layout Spec](https://www.w3.org/publications/spec-generator/?type=bikeshed-spec&output=html&die-on=fatal&md-date=&url=https%3A%2F%2Fraw.githubusercontent.com%2Fvector-of-bool%2Fpitchfork%2Fdevelop%2Fdata%2Fspec.bs&file=) for some discussion about merged layouts. Short answer is that include directories are an install location, not a source location, but that the directory layouts must still be coherent. Tests are co-located because tests are important and the further away they are, the more they will be dropped.
