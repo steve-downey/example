@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   auto-update-pre-commit:
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-update-pre-commit.yml@503ac65da3fd803044bc82b2fe748b2fc6f503cd # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-update-pre-commit.yml@1.5.3
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-update-pre-commit.yml@4d946e210ce2ee68ccd8607c8acccacf171830c5 # ratchet:bemanproject/infra-workflows/.github/workflows/reusable-beman-update-pre-commit.yml@1.7.1
     permissions:
       checks: write
       issues: write
