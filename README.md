@@ -73,6 +73,7 @@ The makefile provides a variety of tools. It will install most borrowing from Py
 ```shell
 (example) sdowney@pwyll:~/src/surround/example (main ±)
 $ make help
+check-template                 Verify template/ renders back to this repo (no auto-fix)
 clean                          Clean the build artifacts
 clean-venv                     Delete python virtual env
 compile                        Compile the project
@@ -80,7 +81,6 @@ compile_commands.json          symlink the current compile commands db
 compile-headers                Compile the headers
 coverage                       Build and run the tests with the GCOV profile and process the results
 ctest                          Run CTest on current build
-.DEFAULT                       Other targets passed through to cmake
 dev-shell                      Shell with the venv activated
 docs                           Build the docs with Doxygen
 help                           Show this help.
@@ -88,9 +88,10 @@ install                        Install the project
 install-uv                     install uv via `pipx install uv`
 lint                           Run all configured tools in pre-commit
 lint-manual                    Run all manual tools in pre-commit
-mrdocs                         Build the docs with Doxygen
+mrdocs                         Build the docs with MrDocs
 realclean                      Delete the build directory
 show-venv                      Debugging target - show venv details
+sync-template                  Mirror byte-identical paths from repo into template/, then run check
 test                           Rebuild and run tests
 testinstall                    Test the installed package
 venv                           Create python virtual env
