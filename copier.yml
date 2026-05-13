@@ -14,6 +14,7 @@ _exclude:
   - .git
   - example.html
   - example.md
+  - scripts/sync_template.sh
 
 project_slug:
   type: str

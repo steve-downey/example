@@ -41,6 +41,7 @@ check_consistency() {
         --exclude CLAUDE.md \
         --exclude compile_commands.json \
         --exclude .update-submodules \
+        --exclude sync_template.sh \
         "$repo_root" "$output_dir" >"$diff_path" || true
 
     if [[ -s "$diff_path" ]]; then

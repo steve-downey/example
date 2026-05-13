@@ -192,6 +192,16 @@ bash zsh: venv
 bash zsh: ## Run bash or zsh with the venv activated
 	$(ACTIVATE) $@
 
+.PHONY: sync-template
+sync-template: venv
+sync-template: ## Mirror byte-identical paths from repo into template/, then run check
+	$(ACTIVATE) bash scripts/sync_template.sh
+
+.PHONY: check-template
+check-template: venv
+check-template: ## Verify template/ renders back to this repo (no auto-fix)
+	$(ACTIVATE) bash copier/check_copier.sh
+
 .PHONY: lint
 lint: venv
 lint: ## Run all configured tools in pre-commit
