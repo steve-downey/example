@@ -35,6 +35,12 @@ check_consistency() {
         --exclude copier_test.yml \
         --exclude example.html \
         --exclude example.md \
+        --exclude uv.lock \
+        --exclude .build \
+        --exclude .claude \
+        --exclude CLAUDE.md \
+        --exclude compile_commands.json \
+        --exclude .update-submodules \
         "$repo_root" "$output_dir" >"$diff_path" || true
 
     if [[ -s "$diff_path" ]]; then
