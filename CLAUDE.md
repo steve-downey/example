@@ -50,6 +50,15 @@ Or filter at the binary level: `.build/build-system/src/smd/example/Asan/name_te
 
 All Python tooling (cmake, ninja, pre-commit, gcovr, mbake, clang-format, copier) is pulled in via `uv` into a local `.venv`. The Makefile prepends `uv run` to invocations, so you generally don't need to activate the venv manually. `make dev-shell` (or `make bash` / `make zsh`) drops you into a shell with the venv active. If `uv` itself is missing, `make install-uv` runs `pipx install uv`.
 
+## Vendored papers
+
+The repo vendors the WG21 paper framework under `papers/wg21` via `git subtree`. This path is intentionally generic and should stay generic; do not reintroduce proposal-specific directory names like `papers/P2988` in the repo root, template, or docs.
+
+- `make papers` delegates to `papers/wg21`
+- `make clean` removes generated paper outputs
+- `make realclean` removes the paper tool infrastructure as well
+- Keep `template/papers/wg21` in sync with the root vendored tree via `make sync-template`
+
 ## Code layout
 
 C++ source lives entirely under `src/` using a merged Pitchfork layout — headers, sources, and tests live together by component rather than in separate `include/` / `tests/` trees. Install rules expose `src/` as the include root, so `#include <smd/example/name.hpp>` resolves to `src/smd/example/name.hpp` both in-tree and post-install.

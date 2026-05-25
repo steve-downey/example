@@ -46,6 +46,7 @@ SYNC_PATHS=(
   "infra/"
   "installtest/README.md"
   "lockfile.json"
+  "papers/"
   "pyproject.toml"
   "scripts/"
   "src/CMakeLists.txt"

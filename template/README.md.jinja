@@ -53,6 +53,8 @@ There is a top-level Makefile to drive workflow. Its default is to build and run
 
 The project levergages `uv` and PyPI to install the tools that it requires. It installs them into a local virtual environment so as not to make system wide changes.
 
+The repository also vendors a generic WG21 paper framework under `papers/wg21` via `git subtree`. It is intentionally generic rather than tied to any one proposal number. Use `make papers` to build the vendored papers, `make clean` to remove their generated outputs, and `make realclean` to remove the paper tool infrastructure as well.
+
 The [pre-commit](https://github.com/pre-commit/pre-commit) framework is used to drive linters both locally and in GitHub Actions. Clang format is enforced, as is a CMake format. I've given up doing this by hand. Yaml is even worse. Spellcheck, for code, also.
 
 The infra directory is vendored in from the [Beman Project](https://github.com/bemanproject/infra) supporting [infra](https://github.com/bemanproject/infra) project. Right now for install of the project. Many of the GitHub actions in .github/workflows/ also use Beman scripts and tools. The CMakePresets.txt exists largely to support those tools. I find the workflow [Makefile](./Makefile) easier to extend with less combanitorial explosion.
@@ -79,6 +81,7 @@ $ make help
 check-template                 Verify template/ renders back to this repo (no auto-fix)
 [% endif -%]
 clean                          Clean the build artifacts
+clean-reconf                   Delete the current configured build tree
 clean-venv                     Delete python virtual env
 compile                        Compile the project
 compile_commands.json          symlink the current compile commands db
@@ -93,7 +96,9 @@ install-uv                     install uv via `pipx install uv`
 lint                           Run all configured tools in pre-commit
 lint-manual                    Run all manual tools in pre-commit
 mrdocs                         Build the docs with MrDocs
-realclean                      Delete the build directory
+papers                         Build the vendored WG21 papers
+reconf                         Recreate the current configured build tree
+realclean                      Delete the generated build infrastructure
 show-venv                      Debugging target - show venv details
 [% if project_slug == 'example' -%]
 sync-template                  Mirror byte-identical paths from repo into template/, then run check
