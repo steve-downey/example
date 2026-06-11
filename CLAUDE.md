@@ -8,8 +8,11 @@ This repository is *both* a working C++ project *and* a Copier template for boot
 
 - The repository itself lives at the top level (`src/`, `CMakeLists.txt`, `Makefile`, `infra/`, `etc/`, etc.).
 - The Copier template lives under `template/` and is configured by `copier.yml` at the root.
-- The script `copier/check_copier.sh` enforces that rendering the template with default answers produces a tree byte-for-byte identical to the repo root (excluding a small set of paths), and that a randomized render contains no example-specific names. **When you change something in the repo root that has a `template/` counterpart, change both.** Otherwise `check_copier.sh` and the `copier_test.yml` GitHub Action will fail.
+- The script `copier/check_copier.sh` enforces that rendering the template with default answers produces a tree byte-for-byte identical to the repo root (excluding a small set of paths), and that a randomized render contains no example-specific names. **When you change something in the repo root that has a `template/` counterpart, you must keep `template/` in sync.** Otherwise `check_copier.sh` and the `copier_test.yml` GitHub Action will fail.
+- **Two-tier sync**: plain (non-jinja) files are mirrored automatically — run `make sync-template` after editing them and it will rsync them into `template/` then run the round-trip check. Files with the `.jinja` suffix contain `[[[ var ]]]` substitutions and **must be edited manually** because the substitutions cannot be reverse-derived.
+- `make check-template` — verify only, no auto-fix (what CI runs). `make sync-template` — mirror + verify (use this locally after editing non-jinja files).
 - Copier uses non-default delimiters (see `_envops` in `copier.yml`): `[[[ var ]]]` for variables, `[% %]` for blocks, `[# #]` for comments. Template files use the `.jinja` suffix.
+- `CLAUDE.md` is excluded from the Copier round-trip check and does not need a `template/` counterpart.
 
 ## Build and test workflow
 

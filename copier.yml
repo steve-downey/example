@@ -8,6 +8,8 @@ _envops:
   comment_end_string: "#]"
   comment_start_string: "[#"
   keep_trailing_newline: true
+  lstrip_blocks: true
+  trim_blocks: true
   variable_end_string: "]]]"
   variable_start_string: "[[["
 _exclude:
@@ -71,6 +73,14 @@ sample_value:
   type: str
   help: Value returned by the sample library function.
   default: Steve
+
+test_framework:
+  type: str
+  help: Test framework to use for the sample test suite (gtest or catch2).
+  default: gtest
+  choices:
+    - gtest
+    - catch2
 
 project_package_name:
   type: str

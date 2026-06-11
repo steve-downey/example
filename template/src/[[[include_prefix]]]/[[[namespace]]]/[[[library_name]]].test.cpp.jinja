@@ -5,6 +5,7 @@
 
 #include <[[[ include_prefix ]]]/[[[ namespace ]]]/[[[ library_name ]]].hpp> // test 2nd include OK
 
+[% if test_framework == 'gtest' %]
 #include <gtest/gtest.h>
 
 TEST(Test, Fail) { SUCCEED(); }
@@ -12,3 +13,12 @@ TEST(Test, Fail) { SUCCEED(); }
 // 03013d1f-bcc1-4d3e-9701-3ed1a15c6370
 TEST(TestName, [[[ sample_value ]]]) { ASSERT_EQ([[[ namespace ]]]::[[[ library_name ]]](), "[[[ sample_value ]]]"); }
 // 03013d1f-bcc1-4d3e-9701-3ed1a15c6370 end
+[% elif test_framework == 'catch2' %]
+#include <catch2/catch_test_macros.hpp>
+
+// 03013d1f-bcc1-4d3e-9701-3ed1a15c6370
+TEST_CASE("[[[ library_name ]]] returns [[[ sample_value ]]]", "[[[library_name]]]") {
+    REQUIRE([[[ namespace ]]]::[[[ library_name ]]]() == "[[[ sample_value ]]]");
+}
+// 03013d1f-bcc1-4d3e-9701-3ed1a15c6370 end
+[% endif %]

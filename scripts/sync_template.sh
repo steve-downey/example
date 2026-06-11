@@ -51,7 +51,9 @@ SYNC_PATHS=(
   "scripts/"
   "src/CMakeLists.txt"
   "vcpkg-configuration.json"
-  "vcpkg.json"
+  # vcpkg.json is intentionally omitted: template/vcpkg.json.jinja is a
+  # Jinja template that conditionally emits gtest or catch2, so it cannot
+  # be auto-synced from the repo root.
 )
 
 # Filenames that must never land in template/ even when they sit under a

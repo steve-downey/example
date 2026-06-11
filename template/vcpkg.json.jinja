@@ -1,0 +1,11 @@
+{
+[% if test_framework == 'gtest' %]
+  "dependencies": [
+    "gtest"
+  ]
+[% elif test_framework == 'catch2' %]
+  "dependencies": [
+    "catch2"
+  ]
+[% endif %]
+}
