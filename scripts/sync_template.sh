@@ -72,7 +72,7 @@ for path in "${SYNC_PATHS[@]}"; do
   dst="$repo_root/template/$path"
   if [[ "$path" == */ ]]; then
     mkdir -p "$dst"
-    rsync -a --delete "${RSYNC_EXCLUDES[@]}" "$src" "$dst"
+    rsync -a --checksum --delete "${RSYNC_EXCLUDES[@]}" "$src" "$dst"
   else
     mkdir -p "$(dirname "$dst")"
     cp -p "$src" "$dst"
