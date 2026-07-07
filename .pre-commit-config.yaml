@@ -15,7 +15,7 @@ repos:
   # This brings in a portable version of clang-format.
   # See also: https://github.com/ssciwr/clang-format-wheel
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v21.1.2
+    rev: v22.1.5
     hooks:
       - id: clang-format
         types_or: [c++, c]
@@ -30,7 +30,7 @@ repos:
   # Markdown linting
   # Config file: .markdownlint.yaml
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.43.0
+    rev: v0.49.0
     hooks:
       - id: markdownlint
         args: ['--disable', 'MD013', ' --']
@@ -38,7 +38,7 @@ repos:
 
   # Config file: .codespell_ignore
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.2
     hooks:
       - id: codespell
         args: ['-I', '.codespell_ignore', '--uri-ignore-words-list', '*']
@@ -49,20 +49,20 @@ repos:
 
   - repo: https://github.com/checkmake/checkmake.git
     # Or another commit hash or version
-    rev: 0.2.2
+    rev: v0.3.0
     hooks:
       # Use this hook to let pre-commit build checkmake in its sandbox
       - id: checkmake
 
   #  MBake Makefile formatting
   - repo: https://github.com/EbodShojaei/bake
-    rev: v1.4.5
+    rev: v1.4.6
     hooks:
       # - id: mbake-format
       #   args: ["--config=.github/bake.toml"]
       - id: mbake-validate
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.16.3
+    rev: v8.30.0
     hooks:
       - id: gitleaks
   - repo: https://github.com/jumanjihouse/pre-commit-hooks

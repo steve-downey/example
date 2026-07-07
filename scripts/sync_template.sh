@@ -65,6 +65,7 @@ RSYNC_EXCLUDES=(
   "--exclude=check_copier.sh"
   "--exclude=copier_test.yml"
   "--exclude=sync_template.sh"
+  "--exclude=update-deps.sh"
 )
 
 echo "Syncing repo paths into template/ ..."

@@ -231,6 +231,11 @@ bash zsh: venv
 bash zsh: ## Run bash or zsh with the venv activated
 	$(ACTIVATE) $@
 
+.PHONY: update-deps
+update-deps: venv
+update-deps: ## Bump dependency versions locally (pre-commit, uv, actions)
+	$(ACTIVATE) bash scripts/update-deps.sh
+
 .PHONY: sync-template
 sync-template: venv
 sync-template: ## Mirror byte-identical paths from repo into template/, then run check

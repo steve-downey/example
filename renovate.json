@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "ignorePaths": ["papers/**"],
+  "pre-commit": {
+    "enabled": true,
+    "fileMatch": ["(^|/)\\.(pre-commit-config)\\.yaml$"]
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["template/.github/workflows/**"],
+      "matchStrings": [
+        "uses:\\s+(?<depName>[\\w-]+/[\\w-]+(?:/[\\w-]+)?)@(?<currentDigest>[a-f0-9]{40})\\s+#\\s*(?<currentValue>v?[\\d.]+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["template/.pre-commit-config.yaml"],
+      "matchStrings": [
+        "repo:\\s+https://github\\.com/(?<depName>[^\\s]+?)(?:\\.git)?\\s+rev:\\s+(?<currentValue>v?[\\d.]+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    }
+  ]
+}
