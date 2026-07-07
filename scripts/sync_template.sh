@@ -62,6 +62,7 @@ SYNC_PATHS=(
 #   copier_test.yml: the round-trip CI workflow
 #   sync_template.sh: this script itself
 RSYNC_EXCLUDES=(
+  "--exclude=check_copier.sh"
   "--exclude=copier_test.yml"
   "--exclude=sync_template.sh"
 )

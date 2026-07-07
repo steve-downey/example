@@ -38,8 +38,11 @@ check_consistency() {
         --exclude uv.lock \
         --exclude .build \
         --exclude .claude \
+        --exclude .install \
+        --exclude check_copier.sh \
         --exclude CLAUDE.md \
         --exclude compile_commands.json \
+        --exclude html \
         --exclude .update-submodules \
         --exclude sync_template.sh \
         "$repo_root" "$output_dir" >"$diff_path" || true
