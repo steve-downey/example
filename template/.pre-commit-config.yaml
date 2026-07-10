@@ -47,13 +47,6 @@ repos:
             (papers|latex)/.*
           )$
 
-  - repo: https://github.com/checkmake/checkmake.git
-    # Or another commit hash or version
-    rev: v0.3.0
-    hooks:
-      # Use this hook to let pre-commit build checkmake in its sandbox
-      - id: checkmake
-
   #  MBake Makefile formatting
   - repo: https://github.com/EbodShojaei/bake
     rev: v1.4.6
@@ -61,10 +54,12 @@ repos:
       # - id: mbake-format
       #   args: ["--config=.github/bake.toml"]
       - id: mbake-validate
+
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.0
     hooks:
       - id: gitleaks
+
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
     hooks:
