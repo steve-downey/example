@@ -18,6 +18,12 @@ _exclude:
   - example.md
   - scripts/sync_template.sh
 
+_tasks:
+  - "[ -d .git ] || git init"
+  - "git add . && git commit --allow-empty -m 'Initial copier generation' || true"
+  - "[ -d infra ] || git subtree add --prefix=infra https://github.com/bemanproject/infra.git [[[ infra_ref ]]] --squash"
+  - "[ -d papers/wg21 ] || git subtree add --prefix=papers/wg21 https://github.com/mpark/wg21.git [[[ wg21_ref ]]] --squash"
+
 project_slug:
   type: str
   help: Repository slug used for docs and package naming.
@@ -96,3 +102,13 @@ testing_option_name:
   type: str
   when: false
   default: "[[[ library_name | upper ]]]_ENABLE_TESTING"
+
+infra_ref:
+  type: str
+  when: false
+  default: "54dcdad8b661a405a6ac06453f0f06da5d30ba5c"
+
+wg21_ref:
+  type: str
+  when: false
+  default: "5085524eb88052e8cb7debdaf065c16b5af68ca5"

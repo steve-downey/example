@@ -43,6 +43,8 @@ check_consistency() {
         --exclude CLAUDE.md \
         --exclude compile_commands.json \
         --exclude html \
+        --exclude infra \
+        --exclude papers \
         --exclude renovate.json \
         --exclude .update-submodules \
         --exclude sync_template.sh \
@@ -72,6 +74,7 @@ check_templating() {
 
     local grep_path="$work_dir/randomized.grep"
     grep -RIn \
+        --exclude-dir=.git \
         -e 'Example C\+\+ Full Stack Project' \
         -e 'example\.name' \
         -e 'smd/example/name' \
