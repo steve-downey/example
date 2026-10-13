@@ -15,7 +15,13 @@ cleanup() {
 generate_project() {
     local destination="$1"
     shift
-    uv run copier copy --trust --defaults "$@" "$template_source" "$destination" >/dev/null
+    # The template's _tasks commit and run git subtree add, which need an
+    # identity; CI runners have none configured.
+    GIT_AUTHOR_NAME="Copier Check" \
+        GIT_AUTHOR_EMAIL="copier-check@example.invalid" \
+        GIT_COMMITTER_NAME="Copier Check" \
+        GIT_COMMITTER_EMAIL="copier-check@example.invalid" \
+        uv run copier copy --trust --defaults "$@" "$template_source" "$destination" >/dev/null
 }
 
 check_consistency() {
