@@ -45,4 +45,9 @@ set(CMAKE_CXX_FLAGS_GCOV
     "C++ GCOV Flags"
     FORCE
 )
-set(CMAKE_LINKER_FLAGS_GCOV "--coverage" CACHE STRING "Linker GCOV Flags" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS_GCOV
+    "--coverage"
+    CACHE STRING
+    "Linker GCOV Flags"
+    FORCE
+)
