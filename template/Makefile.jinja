@@ -1,5 +1,9 @@
 # Makefile                                                       -*-makefile-*-
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+# Interface: exemplar-make/1
+#   The shape Emacs (secretaire-make.el) and other tools read from this file:
+#   goals documented as `goal: ## help', the configs in _configuration_types
+#   with CONFIG's default, and toolchains as etc/<name>-toolchain.cmake.
 
 export
 MAKEFLAGS += --no-builtin-rules
