@@ -1,44 +1,16 @@
 include_guard(GLOBAL)
 
+include("${CMAKE_CURRENT_LIST_DIR}/clang-flags.cmake")
+
 set(CMAKE_C_COMPILER clang-11)
 set(CMAKE_CXX_COMPILER clang++-11)
 
+# clang 11 predates the gnu++26 that clang-flags.cmake selects; stay on C++20,
+# and on libc++ as before.
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS
-    "-std=c++20 \
-   -Wall -Wextra \
-   -stdlib=libc++ "
+    "-std=c++20 -Wall -Wextra -stdlib=libc++"
     CACHE STRING
     "CXX_FLAGS"
-    FORCE
-)
-
-set(CMAKE_CXX_FLAGS_DEBUG
-    "-O0 -fno-inline -g3"
-    CACHE STRING
-    "C++ DEBUG Flags"
-    FORCE
-)
-set(CMAKE_CXX_FLAGS_RELEASE
-    "-Ofast -g0 -DNDEBUG"
-    CACHE STRING
-    "C++ Release Flags"
-    FORCE
-)
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
-    "-O3 -g -DNDEBUG"
-    CACHE STRING
-    "C++ RelWithDebInfo Flags"
-    FORCE
-)
-set(CMAKE_CXX_FLAGS_TSAN
-    "-O3 -g -DNDEBUG -fsanitize=thread"
-    CACHE STRING
-    "C++ TSAN Flags"
-    FORCE
-)
-set(CMAKE_CXX_FLAGS_ASAN
-    "-O3 -g -DNDEBUG -fsanitize=address -fsanitize=undefined -fsanitize=leak"
-    CACHE STRING
-    "C++ ASAN Flags"
     FORCE
 )

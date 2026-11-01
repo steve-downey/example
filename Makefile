@@ -1,5 +1,9 @@
 # Makefile                                                       -*-makefile-*-
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+# Interface: exemplar-make/1
+#   The shape Emacs (secretaire-make.el) and other tools read from this file:
+#   goals documented as `goal: ## help', the configs in _configuration_types
+#   with CONFIG's default, and toolchains as etc/<name>-toolchain.cmake.
 
 export
 MAKEFLAGS += --no-builtin-rules
@@ -245,6 +249,10 @@ sync-template: ## Mirror byte-identical paths from repo into template/, then run
 check-template: venv
 check-template: ## Verify template/ renders back to this repo (no auto-fix)
 	$(ACTIVATE) bash copier/check_copier.sh
+
+.PHONY: check-toolchains
+check-toolchains: ## Check every toolchain file supports the documented configs
+	$(PYEXECPATH) scripts/check_toolchains.py
 
 .PHONY: lint
 lint: venv

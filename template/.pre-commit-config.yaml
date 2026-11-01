@@ -64,6 +64,18 @@ repos:
     rev: 3.0.0
     hooks:
       - id: shellcheck
+
+  # Every toolchain file must support every config the Makefile documents
+  # (CMake builds an unknown config with empty flags, silently).  The same
+  # check is `make check-toolchains`.
+  - repo: local
+    hooks:
+      - id: check-toolchains
+        name: toolchain files support the documented configs
+        entry: scripts/check_toolchains.py
+        language: script
+        pass_filenames: false
+        files: ^(etc/.*\.cmake|Makefile|scripts/check_toolchains\.py)$
 # Come back to cpplint
 #  - repo: https://github.com/pocc/pre-commit-hooks
 #    rev: v1.3.5
