@@ -1,0 +1,69 @@
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+# Dependabot bumps files at the repo root only, so its PRs fail the Copier
+# round-trip check until the same change is mirrored into template/. This
+# workflow does the mirroring and pushes it back to the PR branch.
+#
+# It pushes with TEMPLATE_SYNC_TOKEN, a fine-grained PAT scoped to this
+# repository with Contents: read and write, stored as a *Dependabot* secret
+# (Settings > Secrets and variables > Dependabot). A push made with the
+# default GITHUB_TOKEN would not trigger CI on the new commit, leaving the PR
+# blocked on the stale failed check.
+#
+# This file is excluded from template/: rendered projects have no template/
+# to keep in sync.
+
+name: Dependabot Template Sync
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dependabot-template-sync-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-template:
+    # Only dependabot's own pushes. The commit pushed below comes from the
+    # token's owner, so it does not re-trigger this job.
+    if: >-
+      github.actor == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    name: Mirror dependabot changes into template/
+    steps:
+      - name: Require the push token
+        env:
+          TOKEN: ${{ secrets.TEMPLATE_SYNC_TOKEN }}
+        run: |
+          if [[ -z "$TOKEN" ]]; then
+            echo "::error::Dependabot secret TEMPLATE_SYNC_TOKEN is not set; cannot push the template/ mirror."
+            exit 1
+          fi
+
+      - name: Checkout PR branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.TEMPLATE_SYNC_TOKEN }}
+
+      - name: Mirror into template/
+        run: bash scripts/sync_template.sh --no-check
+
+      - name: Commit and push
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          if [[ -z "$(git status --porcelain -- template)" ]]; then
+            echo "template/ already in sync"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add template
+          git commit -m "Mirror dependabot changes into template/"
+          git push origin "HEAD:$BRANCH"
