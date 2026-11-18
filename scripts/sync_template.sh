@@ -9,8 +9,19 @@
 # Workflow: edit something at the repo root (e.g. a workflow file), run
 # `make sync-template`, and check_copier.sh will tell you whether any jinja
 # files still need a hand-edit.
+#
+# --no-check mirrors only and skips the round-trip check. The dependabot
+# template-sync workflow uses it, because the Copier Test workflow runs the
+# check on the pushed result anyway.
 
 set -euo pipefail
+
+run_check=1
+case "${1:-}" in
+  --no-check) run_check=0 ;;
+  "") ;;
+  *) echo "usage: $0 [--no-check]" >&2; exit 2 ;;
+esac
 
 script_dir=$(realpath "$(dirname "$0")")
 repo_root=$(realpath "$script_dir/..")
@@ -58,10 +69,12 @@ SYNC_PATHS=(
 # synced directory. These belong to the canonical repo only -- rendered
 # projects don't need them.
 #   copier_test.yml: the round-trip CI workflow
+#   dependabot-template-sync.yml: mirrors dependabot bumps into template/
 #   sync_template.sh: this script itself
 RSYNC_EXCLUDES=(
   "--exclude=check_copier.sh"
   "--exclude=copier_test.yml"
+  "--exclude=dependabot-template-sync.yml"
   "--exclude=sync_template.sh"
   "--exclude=update-deps.sh"
 )
@@ -79,6 +92,8 @@ for path in "${SYNC_PATHS[@]}"; do
   fi
 done
 
-echo
-echo "Running Copier round-trip check ..."
-bash "$repo_root/copier/check_copier.sh"
+if (( run_check )); then
+  echo
+  echo "Running Copier round-trip check ..."
+  bash "$repo_root/copier/check_copier.sh"
+fi

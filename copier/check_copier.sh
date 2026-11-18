@@ -39,6 +39,7 @@ check_consistency() {
         --exclude copier.yml \
         --exclude .copier-answers.yml \
         --exclude copier_test.yml \
+        --exclude dependabot-template-sync.yml \
         --exclude example.html \
         --exclude example.md \
         --exclude uv.lock \
