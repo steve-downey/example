@@ -125,4 +125,7 @@ jobs:
   create-issue-when-fault:
     needs: [preset-test, build-and-test]
     if: failure() && github.event_name == 'schedule'
+    permissions:
+      contents: read
+      issues: write
     uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-create-issue-when-fault.yml@c8b30b8438e9c504cb7c38dca717687127b42561 # 1.7.5
